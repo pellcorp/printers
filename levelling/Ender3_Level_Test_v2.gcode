@@ -3,9 +3,11 @@
 ;Filament used: 0.181969m
 ;Layer height: 0.2
 ;Generated with Cura_SteamEngine 3.4.1
-M190 S45
-M104 S195
-M109 S195
+M140 S60 ; Set Heat Bed temperature
+M104 S210 ; Set Extruder temperature
+M190 S60 ; Wait for Heat Bed temperature
+M109 S210 ; Wait for Extruder temperature
+
 M82 ;absolute extrusion mode
 ;Sliced at Sat 11-08-2018 11:43:25
 ;Basic settings:
@@ -16,6 +18,18 @@ M82 ;absolute extrusion mode
 ;Retraction Distance: 7
 ;Retraction Speed: 60
 G28 ;Home
+
+G28 ;Home
+
+G92 E0 ;Reset Extruder
+G1 Z2.0 F3000 ;Move Z Axis up
+G1 X10.1 Y20 Z0.28 F5000.0 ;Move to start position
+G1 X10.1 Y200.0 Z0.28 F1500.0 E15 ;Draw the first line
+G1 X10.4 Y200.0 Z0.28 F5000.0 ;Move to side a little
+G1 X10.4 Y20 Z0.28 F1500.0 E30 ;Draw the second line
+G92 E0 ;Reset Extruder
+G1 Z2.0 F3000 ;Move Z Axis up
+
 G1 Z15.0 F6000 ;Move the platform down 15mm
 ;Prime the extruder
 G92 E0
