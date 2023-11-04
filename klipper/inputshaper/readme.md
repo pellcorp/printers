@@ -1,5 +1,7 @@
 The instructions on this page to downgrade to buster work, however the baud rate was wrong, had to change to 115200
 
+https://nate15329.com/klipper-input-shaper-w-arduino-nano/
+
 avrdude -patmega328p -c arduino  -b115200 -P /dev/ttyUSB1 -v  -D -Uflash:w:out/klipper.elf.hex:i
 
 
