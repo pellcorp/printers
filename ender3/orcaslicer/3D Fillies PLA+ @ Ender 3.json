@@ -15,32 +15,8 @@
         "1"
     ],
     "compatible_printers": [
-        "Creality CR-10 V2 0.4 nozzle",
-        "Creality CR-10 Max 0.4 nozzle",
-        "Creality CR-6 SE 0.2 nozzle",
-        "Creality CR-6 SE 0.4 nozzle",
-        "Creality CR-6 SE 0.6 nozzle",
-        "Creality CR-6 SE 0.8 nozzle",
-        "Creality CR-6 Max 0.2 nozzle",
-        "Creality CR-6 Max 0.4 nozzle",
-        "Creality CR-6 Max 0.6 nozzle",
-        "Creality CR-6 Max 0.8 nozzle",
-        "Creality Ender-3 0.4 nozzle",
-        "Creality Ender-3 V2 0.4 nozzle",
-        "Creality Ender-3 S1 0.4 nozzle",
-        "Creality Ender-3 S1 Pro 0.4 nozzle",
-        "Creality Ender-5 0.4 nozzle",
-        "Creality Ender-5 Plus 0.4 nozzle",
-        "Creality Ender-5 Pro (2019) 0.4 nozzle",
-        "Creality Ender-5S 0.4 nozzle",
-        "Creality Ender-5 S1 0.4 nozzle",
-        "Creality Ender-6 0.4 nozzle",
-        "Creality K1 (0.4 nozzle)",
-        "Creality K1 (0.6 nozzle)",
-        "Creality K1 (0.8 nozzle)",
-        "Creality K1 Max (0.4 nozzle)",
-        "Creality K1 Max (0.6 nozzle)",
-        "Creality K1 Max (0.8 nozzle)"
+        "MyKlipper 0.4 nozzle",
+        "MyMarlin 0.4 nozzle"
     ],
     "compatible_printers_condition": "",
     "compatible_prints": [],
@@ -64,7 +40,7 @@
         "1"
     ],
     "enable_pressure_advance": [
-        "1"
+        "0"
     ],
     "eng_plate_temp": [
         "60"
@@ -106,7 +82,7 @@
         "; filament end gcode \n"
     ],
     "filament_flow_ratio": [
-        "0.9673"
+        "0.98"
     ],
     "filament_is_support": [
         "0"
@@ -121,7 +97,7 @@
         "3"
     ],
     "filament_max_volumetric_speed": [
-        "20"
+        "12"
     ],
     "filament_minimal_purge_on_wipe_tower": [
         "15"
@@ -136,7 +112,7 @@
         "10"
     ],
     "filament_notes": [
-        "65  for newer rougher bed"
+        ""
     ],
     "filament_ramming_parameters": [
         "120 100 6.6 6.8 7.2 7.6 7.9 8.2 8.7 9.4 9.9 10.0| 0.05 6.6 0.45 6.8 0.95 7.8 1.45 8.3 1.95 9.7 2.45 10 2.95 7.6 3.45 7.6 3.95 7.6 4.45 7.6 4.95 7.6"
@@ -169,7 +145,7 @@
         "nil"
     ],
     "filament_settings_id": [
-        "Creality Generic PLA+ @ Ender 3"
+        "3D Fillies PLA+ @ Ender 3"
     ],
     "filament_shrink": [
         "100%"
@@ -184,7 +160,7 @@
         "0"
     ],
     "filament_type": [
-        "PLA+"
+        "PLA"
     ],
     "filament_unload_time": [
         "0"
@@ -205,10 +181,10 @@
         "nil"
     ],
     "filament_z_hop": [
-        "nil"
+        "0"
     ],
     "filament_z_hop_types": [
-        "nil"
+        "Spiral Lift"
     ],
     "from": "",
     "full_fan_speed_layer": [
@@ -220,13 +196,13 @@
     "hot_plate_temp_initial_layer": [
         "60"
     ],
-    "inherits": "Creality Generic PLA",
-    "name": "Creality Generic PLA+ @ Ender 3",
+    "inherits": "My Generic PLA",
+    "name": "3D Fillies PLA+ @ Ender 3",
     "nozzle_temperature": [
-        "200"
+        "220"
     ],
     "nozzle_temperature_initial_layer": [
-        "205"
+        "220"
     ],
     "nozzle_temperature_range_high": [
         "230"
@@ -241,7 +217,7 @@
         "50%"
     ],
     "pressure_advance": [
-        "0.06"
+        "0.02"
     ],
     "reduce_fan_stop_start_freq": [
         "1"
@@ -270,5 +246,5 @@
     "textured_plate_temp_initial_layer": [
         "60"
     ],
-    "version": "1.7.0.0"
+    "version": "1.8.0.0"
 }

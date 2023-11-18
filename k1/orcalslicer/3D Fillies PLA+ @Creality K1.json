@@ -46,7 +46,7 @@
     "compatible_prints": [],
     "compatible_prints_condition": "",
     "complete_print_exhaust_fan_speed": [
-        "100"
+        "80"
     ],
     "cool_plate_temp": [
         "60"
@@ -58,13 +58,13 @@
         ""
     ],
     "during_print_exhaust_fan_speed": [
-        "100"
+        "60"
     ],
     "enable_overhang_bridge_fan": [
         "1"
     ],
     "enable_pressure_advance": [
-        "1"
+        "0"
     ],
     "eng_plate_temp": [
         "60"
@@ -106,7 +106,7 @@
         "; filament end gcode \n"
     ],
     "filament_flow_ratio": [
-        "0.96726"
+        "0.98"
     ],
     "filament_is_support": [
         "0"
@@ -121,7 +121,7 @@
         "3"
     ],
     "filament_max_volumetric_speed": [
-        "25"
+        "12"
     ],
     "filament_minimal_purge_on_wipe_tower": [
         "15"
@@ -169,7 +169,7 @@
         "nil"
     ],
     "filament_settings_id": [
-        "Creality Generic PLA+ @Creality K1"
+        "3D Fillies PLA+ @Creality K1"
     ],
     "filament_shrink": [
         "100%"
@@ -205,10 +205,10 @@
         "nil"
     ],
     "filament_z_hop": [
-        "nil"
+        "0"
     ],
     "filament_z_hop_types": [
-        "nil"
+        "Spiral Lift"
     ],
     "from": "",
     "full_fan_speed_layer": [
@@ -221,9 +221,9 @@
         "60"
     ],
     "inherits": "Creality Generic PLA",
-    "name": "Creality Generic PLA+ @Creality K1",
+    "name": "3D Fillies PLA+ @Creality K1",
     "nozzle_temperature": [
-        "210"
+        "220"
     ],
     "nozzle_temperature_initial_layer": [
         "220"
@@ -241,7 +241,7 @@
         "50%"
     ],
     "pressure_advance": [
-        "0.04"
+        "0.02"
     ],
     "reduce_fan_stop_start_freq": [
         "1"
@@ -256,7 +256,7 @@
         "8"
     ],
     "slow_down_min_speed": [
-        "20"
+        "10"
     ],
     "support_material_interface_fan_speed": [
         "-1"
@@ -270,5 +270,5 @@
     "textured_plate_temp_initial_layer": [
         "60"
     ],
-    "version": "1.7.0.0"
+    "version": "1.8.0.0"
 }

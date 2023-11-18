@@ -9,3 +9,8 @@ Disable the following services which are no longer required:
 
 Edit /usr/data/nginx/nginx/nginx.conf to change the listen address for fluidd to 80 so can use default
 
+
+Upgrade apprise to fix email sending:
+
+/usr/data/moonraker/moonraker-env/bin/python3 -m pip install --no-dependencies apprise==1.3.0
+
