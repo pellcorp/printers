@@ -205,10 +205,10 @@
         "nil"
     ],
     "filament_z_hop": [
-        "0"
+        "nil"
     ],
     "filament_z_hop_types": [
-        "Spiral Lift"
+        "nil"
     ],
     "from": "",
     "full_fan_speed_layer": [
