@@ -57,15 +57,15 @@
         "9000"
     ],
     "machine_max_acceleration_x": [
-        "20000",
+        "17500",
         "20000"
     ],
     "machine_max_acceleration_y": [
-        "20000",
+        "12400",
         "20000"
     ],
     "machine_max_acceleration_z": [
-        "500",
+        "300",
         "500"
     ],
     "machine_max_jerk_e": [
@@ -89,15 +89,15 @@
         "100"
     ],
     "machine_max_speed_x": [
-        "1000",
+        "600",
         "1000"
     ],
     "machine_max_speed_y": [
-        "1000",
+        "600",
         "1000"
     ],
     "machine_max_speed_z": [
-        "30",
+        "20",
         "30"
     ],
     "machine_min_extruding_rate": [
@@ -126,7 +126,7 @@
     "nozzle_type": "brass",
     "nozzle_volume": "0",
     "parking_pos_retraction": "92",
-    "print_host": "192.168.9.3:4408",
+    "print_host": "192.168.9.3",
     "print_host_webui": "",
     "printable_area": [
         "0x0",
