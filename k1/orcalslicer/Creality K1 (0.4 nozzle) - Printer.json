@@ -57,7 +57,7 @@
         "9000"
     ],
     "machine_max_acceleration_x": [
-        "17500",
+        "12400",
         "20000"
     ],
     "machine_max_acceleration_y": [
@@ -205,10 +205,10 @@
         "1"
     ],
     "z_hop": [
-        "0.4"
+        "0"
     ],
     "z_hop_types": [
-        "Normal Lift"
+        "Spiral Lift"
     ],
     "z_offset": "0"
 }
