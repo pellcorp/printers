@@ -106,7 +106,7 @@
         "; filament end gcode \nM107 P1"
     ],
     "filament_flow_ratio": [
-        "0.96"
+        "0.98"
     ],
     "filament_is_support": [
         "0"
@@ -223,10 +223,10 @@
     "inherits": "Creality Generic PLA",
     "name": "3D Fillies PLA+ @Creality K1",
     "nozzle_temperature": [
-        "230"
+        "215"
     ],
     "nozzle_temperature_initial_layer": [
-        "230"
+        "220"
     ],
     "nozzle_temperature_range_high": [
         "230"

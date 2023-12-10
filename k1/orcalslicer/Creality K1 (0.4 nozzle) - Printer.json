@@ -109,7 +109,7 @@
         "0"
     ],
     "machine_pause_gcode": "PAUSE",
-    "machine_start_gcode": "M140 S0\nM104 S0 \nSTART_PRINT EXTRUDER_TEMP=[nozzle_temperature_initial_layer] BED_TEMP=[bed_temperature_initial_layer_single]",
+    "machine_start_gcode": "START_PRINT EXTRUDER_TEMP=[nozzle_temperature_initial_layer] BED_TEMP=[bed_temperature_initial_layer_single]",
     "machine_unload_filament_time": "0",
     "manual_filament_change": "0",
     "max_layer_height": [
@@ -130,9 +130,9 @@
     "print_host_webui": "",
     "printable_area": [
         "0x0",
-        "220x0",
-        "220x220",
-        "0x220"
+        "229x0",
+        "229x223",
+        "0x223"
     ],
     "printable_height": "250",
     "printer_model": "Creality K1",
