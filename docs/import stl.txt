@@ -1,0 +1,10 @@
+Import STL
+----------
+
+1. Switch to Part workbench
+2. Import STL
+3. Creative shape from mesh, change to 0.01 sew tolerance
+4. Delete STL object
+4. Convert to Solid
+5. Delete shape object
+6. Refine shape	
