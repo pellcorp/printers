@@ -9,16 +9,18 @@ if [ ! -f /usr/data/printer_data/config/printer.cfg ]; then
 fi
 
 fix_gcode_macros() {
+  echo "Fixing some gcode config ..."
   sed -i 's/^variable_autotune_shapers:/#&/' /usr/data/printer_data/config/gcode_macro.cfg
 }
 
 install_moonraker() {
+  echo "Installing nginx and moonraker..."
   install/curl -L "https://raw.githubusercontent.com/Guilouz/Creality-K1-and-K1-Max/main/Scripts/files/moonraker/moonraker.tar.gz" -o /usr/data/moonraker.tar.gz
   if [ $? -ne 0 ]; then
     echo "Failed to download moonraker.tar.gz"
     exit 1
   fi
-  tar -zxvf /usr/data/moonraker.tar.gz -C /usr/data
+  tar -zxf /usr/data/moonraker.tar.gz -C /usr/data
   rm /usr/data/fluidd.zip
   cp /usr/data/nginx/S50nginx /etc/init.d/
   cp /usr/data/moonraker/S56moonraker_service /etc/init.d/
@@ -31,6 +33,7 @@ install_moonraker() {
 }
 
 install_fluid() {
+  echo "Installing fluidd..."
   install/curl -L "https://github.com/fluidd-core/fluidd/releases/latest/download/fluidd.zip" -o /usr/data/fluidd.zip
   if [ $? -ne 0 ]; then
     echo "Failed to download fluidd.zip"
@@ -47,6 +50,7 @@ install_fluid() {
 }
 
 install_guppyscreen() {
+  echo "Installing guppyscreen..."
   sh -c "GUPPYSCREEN_CONFIRM_PROMPTS=n $(wget --no-check-certificate -qO - https://raw.githubusercontent.com/pellcorp/guppyscreen/jp_noconfirm_install/installer.sh)"
 }
 
