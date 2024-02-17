@@ -25,11 +25,13 @@ install_moonraker() {
   cp /usr/data/nginx/S50nginx /etc/init.d/
   cp /usr/data/moonraker/S56moonraker_service /etc/init.d/
   
+  echo "Updating apprise in moonraker..."
   /usr/data/moonraker/moonraker-env/bin/python3 -m pip install --no-dependencies apprise==1.3.0
   /etc/init.d/S50nginx start
   sleep 1
   /etc/init.d/S56moonraker_service start
   sleep 1
+  sync
 }
 
 install_fluid() {
@@ -47,6 +49,7 @@ install_fluid() {
   sleep 1
   /etc/init.d/S56moonraker_service restart
   sleep 1
+  sync
 }
 
 install_guppyscreen() {
