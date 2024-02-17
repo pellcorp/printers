@@ -1,5 +1,2 @@
-https://github.com/Guilouz/Creality-K1-and-K1-Max/wiki/Installation-Helper-Script
+This stuff is out of date, preferred to use the install.sh script to setup k1
 
-Then run the setup.sh to disable some services and switch fluid to port 80
-
-Updating apprise is necessary to allow fastmail notifications to work correctly
