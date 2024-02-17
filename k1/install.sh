@@ -1,7 +1,9 @@
 #!/bin/sh
 
-nginx_folder="/usr/data/nginx/"
-fluidd_folder="/usr/data/fluidd"
+if [ ! -f /usr/data/printer_data/config/ ]; then
+  echo "Printer data not setup"
+  exit 1
+fi
 
 fix_gcode_macros() {
   sed -i 's/^variable_autotune_shapers:/#&/' /usr/data/printer_data/config/gcode_macro.cfg
@@ -30,7 +32,8 @@ install_fluid() {
 }
 
 install_guppyscreen() {
-  sh -c "$(wget --no-check-certificate -qO - https://raw.githubusercontent.com/ballaswag/guppyscreen/main/installer.sh)"
+  wget --no-check-certificate -qO - https://raw.githubusercontent.com/ballaswag/guppyscreen/main/installer.sh -o /tmp/installer.sh
+  sh -c /tmp/installer.sh
 }
 
 fix_gcode_macros
