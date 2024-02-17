@@ -32,7 +32,7 @@ install_fluid() {
 }
 
 install_guppyscreen() {
-  wget --no-check-certificate -qO - https://raw.githubusercontent.com/ballaswag/guppyscreen/main/installer.sh -o /tmp/installer.sh
+  wget --no-check-certificate -qO /tmp/installer.sh https://raw.githubusercontent.com/ballaswag/guppyscreen/main/installer.sh
   sh -c /tmp/installer.sh
 }
 
