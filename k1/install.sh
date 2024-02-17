@@ -30,9 +30,17 @@ install_moonraker() {
   
   echo "Starting nginx and moonraker..."
   /etc/init.d/S50nginx start
-  sleep 1
+  
   /etc/init.d/S56moonraker_service start
-  sleep 1
+  
+  echo "Waiting for moonraker to start ..."
+  while true; do
+    MRK_KPY_OK=`curl localhost:7125/server/info | jq .result.klippy_connected`
+    if [ "$MRK_KPY_OK" = "true" ]; then
+      break;
+    fi
+    sleep 1
+  done
 }
 
 install_fluid() {
