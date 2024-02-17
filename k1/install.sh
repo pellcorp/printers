@@ -13,7 +13,7 @@ fix_gcode_macros() {
 }
 
 install_moonraker() {
-  install/curl -L "https://raw.githubusercontent.com/Guilouz/Creality-K1-and-K1-Max/main/Scripts/files/moonraker/moonraker.tar.gz" -O /usr/data/moonraker.tar.gz
+  install/curl -L "https://raw.githubusercontent.com/Guilouz/Creality-K1-and-K1-Max/main/Scripts/files/moonraker/moonraker.tar.gz" -o /usr/data/moonraker.tar.gz
   if [ $? -ne 0 ]; then
     echo "Failed to download moonraker.tar.gz"
     exit 1
@@ -31,7 +31,7 @@ install_moonraker() {
 }
 
 install_fluid() {
-  install/curl -L "https://github.com/fluidd-core/fluidd/releases/latest/download/fluidd.zip" -O /usr/data/fluidd.zip
+  install/curl -L "https://github.com/fluidd-core/fluidd/releases/latest/download/fluidd.zip" -o /usr/data/fluidd.zip
   if [ $? -ne 0 ]; then
     echo "Failed to download fluidd.zip"
     exit 1
