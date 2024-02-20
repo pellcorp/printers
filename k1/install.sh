@@ -63,7 +63,7 @@ install_fluid() {
 
 install_guppyscreen() {
   echo "Installing guppyscreen..."
-  sh -c "GUPPYSCREEN_CONFIRM_PROMPTS=n $(wget --no-check-certificate -qO - https://raw.githubusercontent.com/pellcorp/guppyscreen/jp_noconfirm_install/installer.sh)"
+  sh -c "GS_RESTART_KLIPPER=y GS_DECREALITY=y $(wget --no-check-certificate -qO - https://raw.githubusercontent.com/pellcorp/guppyscreen/jp_configure_confirm_install/installer.sh)"
 }
 
 fix_gcode_macros
