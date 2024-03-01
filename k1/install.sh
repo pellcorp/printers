@@ -23,6 +23,9 @@ install_moonraker() {
   tar -zxf /usr/data/moonraker.tar.gz -C /usr/data
   cp /usr/data/nginx/S50nginx /etc/init.d/
   cp /usr/data/moonraker/S56moonraker_service /etc/init.d/
+  cp install/notifier.conf /usr/data/printer_data/config/
+  cp install/moonraker.conf /usr/data/printer_data/config/
+  cp install/moonraker.secrets /usr/data/printer_data/
   
   echo "Updating apprise in moonraker..."
   /usr/data/moonraker/moonraker-env/bin/python3 -m pip install --no-cache-dir --no-dependencies apprise==1.3.0
