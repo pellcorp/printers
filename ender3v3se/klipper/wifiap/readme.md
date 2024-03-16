@@ -12,6 +12,7 @@ sudo apt-get install dnsmasq hostapd
 Hostapd is the AP software, I know that Rasbian has support for this built into network manager, but it seems like network manager is no longer used, so I use this instead which seems to work.
 
 Copy the etc/hostapd/hostapd.conf to /etc/hostapd
+Copy the /etc/hostapd/accept to /etc/hostapd
 
 Change the ssid=XXXXXXXX and wpa_passphrase=XXXXXXXX
 
