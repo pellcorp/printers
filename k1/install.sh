@@ -15,7 +15,7 @@ fix_gcode_macros() {
 
 install_moonraker() {
   echo "Installing nginx and moonraker..."
-  install/curl -L "https://raw.githubusercontent.com/Guilouz/Creality-K1-and-K1-Max/main/Scripts/files/moonraker/moonraker.tar.gz" -o /usr/data/moonraker.tar.gz
+  install/curl -L "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/moonraker/moonraker.tar.gz" -o /usr/data/moonraker.tar.gz
   if [ $? -ne 0 ]; then
     echo "Failed to download moonraker.tar.gz"
     exit 1
@@ -72,5 +72,5 @@ install_guppyscreen() {
 fix_gcode_macros
 install_moonraker
 install_fluid
-install_guppyscreen
+#install_guppyscreen
 
