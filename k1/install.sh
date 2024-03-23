@@ -2,6 +2,8 @@
 
 # git clone --depth=1 https://github.com/pellcorp/printers.git
 # wget "https://raw.githubusercontent.com/Guilouz/Creality-K1-and-K1-Max/main/Scripts/files/fixes/curl" -O install/curl
+# wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S50nginx_service" -O install/S50nginx
+# wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S56moonraker_service" -O install/S56moonraker
 
 if [ ! -f /usr/data/printer_data/config/printer.cfg ]; then
   echo "Printer data not setup"
@@ -21,8 +23,8 @@ install_moonraker() {
     exit 1
   fi
   tar -zxf /usr/data/moonraker.tar.gz -C /usr/data || exit $?
-  cp /usr/data/nginx/S50nginx /etc/init.d/
-  cp /usr/data/moonraker/S56moonraker_service /etc/init.d/
+  cp install/S50nginx /etc/init.d/
+  cp install/S56moonraker /etc/init.d/
   cp install/notifier.conf /usr/data/printer_data/config/
   cp install/moonraker.conf /usr/data/printer_data/config/
   cp install/moonraker.secrets /usr/data/printer_data/
