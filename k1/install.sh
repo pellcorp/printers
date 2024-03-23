@@ -15,12 +15,12 @@ fix_gcode_macros() {
 
 install_moonraker() {
   echo "Installing nginx and moonraker..."
-  install/curl -L "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/moonraker/moonraker.tar.gz" -o /usr/data/moonraker.tar.gz
+  install/curl -L "https://github.com/Guilouz/Creality-Helper-Script/raw/main/files/moonraker/moonraker.tar.gz" -o /usr/data/moonraker.tar.gz
   if [ $? -ne 0 ]; then
     echo "Failed to download moonraker.tar.gz"
     exit 1
   fi
-  tar -zxf /usr/data/moonraker.tar.gz -C /usr/data
+  tar -zxf /usr/data/moonraker.tar.gz -C /usr/data || exit $?
   cp /usr/data/nginx/S50nginx /etc/init.d/
   cp /usr/data/moonraker/S56moonraker_service /etc/init.d/
   cp install/notifier.conf /usr/data/printer_data/config/
@@ -28,7 +28,7 @@ install_moonraker() {
   cp install/moonraker.secrets /usr/data/printer_data/
   
   echo "Updating apprise in moonraker..."
-  /usr/data/moonraker/moonraker-env/bin/python3 -m pip install --no-cache-dir --no-dependencies apprise==1.3.0
+  /usr/data/moonraker/moonraker-env/bin/python3 -m pip install --no-cache-dir --no-dependencies apprise==1.3.0 || exit $?
   sync
   
   echo "Starting nginx and moonraker..."
@@ -48,13 +48,9 @@ install_moonraker() {
 
 install_fluid() {
   echo "Installing fluidd..."
-  install/curl -L "https://github.com/fluidd-core/fluidd/releases/latest/download/fluidd.zip" -o /usr/data/fluidd.zip
-  if [ $? -ne 0 ]; then
-    echo "Failed to download fluidd.zip"
-    exit 1
-  fi
+  install/curl -L "https://github.com/fluidd-core/fluidd/releases/latest/download/fluidd.zip" -o /usr/data/fluidd.zip || exit $?
   mkdir -p /usr/data/fluidd
-  unzip -d /usr/data/fluidd /usr/data/fluidd.zip
+  unzip -d /usr/data/fluidd /usr/data/fluidd.zip || exit $?
   rm /usr/data/fluidd.zip
   sync
   
