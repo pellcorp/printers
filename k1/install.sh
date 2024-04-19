@@ -36,7 +36,7 @@ install_moonraker() {
   echo "Starting nginx and moonraker..."
   /etc/init.d/S50nginx start
   
-  /etc/init.d/S56moonraker_service start
+  /etc/init.d/S56moonraker start
   
   echo "Waiting for moonraker to start ..."
   while true; do
@@ -58,7 +58,7 @@ install_fluid() {
   
   /etc/init.d/S50nginx restart
   sleep 1
-  /etc/init.d/S56moonraker_service restart
+  /etc/init.d/S56moonraker restart
   sleep 1
 }
 
