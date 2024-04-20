@@ -16,7 +16,10 @@ if [ ! -f /usr/data/printer_data/config/printer.cfg ]; then
   exit 1
 fi
 
+PWD=$(pwd)
+
 install_k1_klipper() {
+  cd $PWD
   git --depth=1 clone https://github.com/K1-Klipper/klipper.git /usr/data/klipper
   rm -rf /usr/data/old.klipper
   ln -s /usr/data/klipper /usr/share/klipper
@@ -33,6 +36,7 @@ install_k1_klipper() {
 }
 
 install_moonraker() {
+  cd $PWD
   echo "Installing nginx and moonraker..."
   tar -zxf install/moonraker.tar.gz -C /usr/data
   cp install/S50nginx_service /etc/init.d/
@@ -46,6 +50,7 @@ install_moonraker() {
   git stash
   git checkout master
   git pull
+  cd -
 
   echo "Updating apprise in moonraker..."
   /usr/data/moonraker/moonraker-env/bin/python3 -m pip install --no-cache-dir --no-dependencies apprise==1.3.0 || exit $?
@@ -68,6 +73,7 @@ install_moonraker() {
 }
 
 install_fluid() {
+  cd $PWD
   echo "Installing fluidd..."
   mkdir -p /usr/data/fluidd 
   cp install/fluidd.cfg /usr/data/printer_data/config/
@@ -81,11 +87,13 @@ install_fluid() {
 }
 
 install_guppyscreen() {
+  cd $PWD
   echo "Installing guppyscreen..."
   sh -c "$(wget --no-check-certificate -qO - https://raw.githubusercontent.com/pellcorp/guppyscreen/jp_installer_moonraker_not_started/installer.sh)"
 }
 
 function remove_more_services() {
+  cd $PWD
   BACKUP_DIR=/usr/data/guppyify-backup
   mv /etc/init.d/S70cx_ai_middleware $BACKUP_DIR
   mv /etc/init.d/S97webrtc $BACKUP_DIR
