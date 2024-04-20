@@ -29,10 +29,8 @@ restart_klipper() {
   /etc/init.d/S55klipper_service start
 }
 
-restart_moonraker() {
-  echo "Restarting moonraker..."
-  /etc/init.d/S56moonraker_service stop
-  sleep 10
+start_moonraker() {
+  echo "Starting moonraker..."
   /etc/init.d/S56moonraker_service start
 
   echo -n "Waiting for moonraker to start ..."
@@ -74,7 +72,7 @@ install_k1_klipper() {
   cp install/gcode_macros.cfg /usr/data/printer_data/config/
   cp install/S55klipper_service /etc/init.d/
   rm /usr/data/printer_data/config/printer_params.cfg
-  restart_klipper
+  sync
 }
 
 install_moonraker() {
@@ -98,7 +96,7 @@ install_moonraker() {
   /usr/data/moonraker/moonraker-env/bin/python3 -m pip install --no-cache-dir --no-dependencies apprise==1.3.0 || exit $?
   sync
   
-  restart_moonraker
+  start_moonraker
 }
 
 install_fluid() {
@@ -108,15 +106,13 @@ install_fluid() {
   cp install/fluidd.cfg /usr/data/printer_data/config/
   unzip -d /usr/data/fluidd install/fluidd.zip || exit $?
   sync
-
-  #restart_moonraker
-  restart_nginx
 }
 
 install_guppyscreen() {
   cd $PWD
   echo "Installing guppyscreen..."
   sh -c "$(wget --no-check-certificate -qO - https://raw.githubusercontent.com/pellcorp/guppyscreen/jp_installer_moonraker_not_started/installer.sh)"
+  sync
 }
 
 function remove_more_services() {
@@ -125,6 +121,7 @@ function remove_more_services() {
   mv /etc/init.d/S70cx_ai_middleware $BACKUP_DIR
   mv /etc/init.d/S97webrtc $BACKUP_DIR
   mv /etc/init.d/S99mdns $BACKUP_DIR
+  sync
 }
 
 install_moonraker
