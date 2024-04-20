@@ -47,7 +47,7 @@ restart_moonraker() {
 
 install_k1_klipper() {
   cd $PWD
-  git --depth=1 clone https://github.com/K1-Klipper/klipper.git /usr/data/klipper
+  git clone --depth=1 https://github.com/K1-Klipper/klipper.git /usr/data/klipper
   rm -rf /usr/data/old.klipper
   ln -s /usr/data/klipper /usr/share/klipper
   # this is for bltouch
