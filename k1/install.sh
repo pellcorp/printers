@@ -69,13 +69,12 @@ install_k1_klipper() {
 
   /usr/share/klippy-env/bin/python3 -m compileall /usr/data/klipper/klippy
 
-  rm /usr/data/printer_data/config/gcode_macro.cfg
   rm /usr/data/printer_data/config/printer_params.cfg
   cp install/printer.cfg /usr/data/printer_data/config/
   cp install/sensorless.cfg /usr/data/printer_data/config/
   cp install/fluidd.cfg /usr/data/printer_data/config/
-  cp install/gcode_macros.cfg /usr/data/printer_data/config/
-  cp install/S55klipper_service /etc/init.d/ 
+  cp install/gcode_macro.cfg /usr/data/printer_data/config/
+  cp install/S55klipper_service /etc/init.d/
   sync
 }
 
@@ -131,8 +130,8 @@ function remove_more_services() {
 
 install_moonraker
 install_fluid
-install_guppyscreen
 remove_more_services
 install_k1_klipper
+install_guppyscreen
 
 echo "You must powercycle the printer so that the nozzle firmware is updated"
