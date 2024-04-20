@@ -35,7 +35,6 @@ install_k1_klipper() {
 install_moonraker() {
   echo "Installing nginx and moonraker..."
   tar -zxf install/moonraker.tar.gz -C /usr/data
-  rm /usr/data/moonraker.tar.gz
   cp install/S50nginx_service /etc/init.d/
   cp install/S56moonraker_service /etc/init.d/
   cp install/notifier.conf /usr/data/printer_data/config/
@@ -73,7 +72,6 @@ install_fluid() {
   mkdir -p /usr/data/fluidd 
   cp install/fluidd.cfg /usr/data/printer_data/config/
   unzip -d /usr/data/fluidd install/fluidd.zip || exit $?
-  rm /usr/data/fluidd.zip
   sync
   
   /etc/init.d/S50nginx_service restart
