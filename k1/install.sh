@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# git clone --depth=1 https://github.com/pellcorp/printers.git
+# cd && git clone --depth=1 https://github.com/pellcorp/printers.git
+#
 # wget "https://raw.githubusercontent.com/Guilouz/Creality-K1-and-K1-Max/main/Scripts/files/fixes/curl" -O install/curl
 # wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S50nginx_service" -O install/S50nginx_service
 # wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S56moonraker_service" -O install/S56moonraker_service
