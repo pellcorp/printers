@@ -63,11 +63,11 @@ install_k1_klipper() {
   cd $PWD
   git clone https://github.com/K1-Klipper/klipper.git /usr/data/klipper || exit $?
   rm -rf /usr/share/klipper
-  ln -s /usr/data/klipper /usr/share/klipper
+  ln -s /usr/data/klipper /usr/share/
   # this is for bltouch
   sed -i 's/TRSYNC_TIMEOUT = 0.025/TRSYNC_TIMEOUT = 0.050/g' /usr/share/klipper/klippy/mcu.py
   /usr/share/klippy-env/bin/python3 -m compileall /usr/data/klipper/klippy
-  
+
   cp install/printer.cfg /usr/data/printer_data/config/
   cp install/sensorless.cfg /usr/data/printer_data/config/
   cp install/fluidd.cfg /usr/data/printer_data/config/
