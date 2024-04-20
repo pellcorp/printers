@@ -42,7 +42,19 @@ restart_moonraker() {
     echo -n "."
     sleep 1
   done
-  echo 
+  echo
+
+  # now wait for klipper 
+  while true; do
+    KLIPPER_PATH=`curl localhost:7125/printer/info 2> /dev/null | jq -r .result.klipper_path`
+    if [ -z "$KLIPPER_PATH" -o x"$KLIPPER_PATH" == x"null" ]; then
+      echo -n "."
+      sleep 1
+    else
+      break;
+    fi
+ done
+ echo
 }
 
 install_k1_klipper() {
