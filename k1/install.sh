@@ -7,6 +7,9 @@
 # wget "https://raw.githubusercontent.com/K1-Klipper/installer_script_k1_and_max/main/sensorless.cfg" -O install/sensorless.cfg
 # wget "https://raw.githubusercontent.com/fluidd-core/fluidd-config/master/client.cfg" -O install/fluidd.cfg
 # wget "https://raw.githubusercontent.com/K1-Klipper/installer_script_k1_and_max/main/S55klipper_service" -O install/S55klipper_service
+# wget "https://github.com/Guilouz/Creality-Helper-Script/raw/main/files/moonraker/moonraker.tar.gz" -O install/moonraker.tar.gz
+# wget "https://github.com/fluidd-core/fluidd/releases/latest/download/fluidd.zip" -O install/fluidd.zip
+# wget "https://raw.githubusercontent.com/fluidd-core/fluidd-config/master/client.cfg" -O install/fluidd.cfg
 
 if [ ! -f /usr/data/printer_data/config/printer.cfg ]; then
   echo "Printer data not setup"
@@ -31,8 +34,7 @@ install_k1_klipper() {
 
 install_moonraker() {
   echo "Installing nginx and moonraker..."
-  install/curl -L "https://github.com/Guilouz/Creality-Helper-Script/raw/main/files/moonraker/moonraker.tar.gz" -o /usr/data/moonraker.tar.gz || exit $?
-  tar -zxf /usr/data/moonraker.tar.gz -C /usr/data || exit $?
+  tar -zxf install/moonraker.tar.gz -C /usr/data
   rm /usr/data/moonraker.tar.gz
   cp install/S50nginx_service /etc/init.d/
   cp install/S56moonraker_service /etc/init.d/
@@ -68,10 +70,9 @@ install_moonraker() {
 
 install_fluid() {
   echo "Installing fluidd..."
-  install/curl -L "https://github.com/fluidd-core/fluidd/releases/latest/download/fluidd.zip" -o /usr/data/fluidd.zip || exit $?
-  install/curl -L "https://raw.githubusercontent.com/fluidd-core/fluidd-config/master/client.cfg" -o /usr/data/printer_data/config/fluidd.cfg
-  mkdir -p /usr/data/fluidd
-  unzip -d /usr/data/fluidd /usr/data/fluidd.zip || exit $?
+  mkdir -p /usr/data/fluidd 
+  cp install/fluidd.cfg /usr/data/printer_data/config/
+  unzip -d /usr/data/fluidd install/fluidd.zip || exit $?
   rm /usr/data/fluidd.zip
   sync
   
