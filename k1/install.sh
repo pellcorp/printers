@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# git config --global http.sslVerify false
 # cd && git clone --depth=1 https://github.com/pellcorp/printers.git
 #
 # wget "https://raw.githubusercontent.com/Guilouz/Creality-K1-and-K1-Max/main/Scripts/files/fixes/curl" -O install/curl
