@@ -71,6 +71,7 @@ install_k1_klipper() {
   cp install/fluidd.cfg /usr/data/printer_data/config/
   cp install/gcode_macros.cfg /usr/data/printer_data/config/
   cp install/S55klipper_service /etc/init.d/
+  rm /usr/data/printer_data/config/printer_params.cfg
   restart_klipper
 }
 
@@ -127,5 +128,7 @@ function remove_more_services() {
 install_moonraker
 install_fluid
 install_guppyscreen
-install_k1_klipper
 remove_more_services
+install_k1_klipper
+
+echo "You must powercycle the printer so that the nozzle firmware is updated"
