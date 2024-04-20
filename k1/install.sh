@@ -31,18 +31,21 @@ install_k1_klipper() {
 
 install_moonraker() {
   echo "Installing nginx and moonraker..."
-  install/curl -L "https://github.com/Guilouz/Creality-Helper-Script/raw/main/files/moonraker/moonraker.tar.gz" -o /usr/data/moonraker.tar.gz
-  if [ $? -ne 0 ]; then
-    echo "Failed to download moonraker.tar.gz"
-    exit 1
-  fi
+  install/curl -L "https://github.com/Guilouz/Creality-Helper-Script/raw/main/files/moonraker/moonraker.tar.gz" -o /usr/data/moonraker.tar.gz || exit $?
   tar -zxf /usr/data/moonraker.tar.gz -C /usr/data || exit $?
+  rm /usr/data/moonraker.tar.gz
   cp install/S50nginx_service /etc/init.d/
   cp install/S56moonraker_service /etc/init.d/
   cp install/notifier.conf /usr/data/printer_data/config/
   cp install/moonraker.conf /usr/data/printer_data/config/
   cp install/moonraker.secrets /usr/data/printer_data/
-  
+
+  echo "Updating moonraker to latest from git..."  
+  cd /usr/data/moonraker/moonraker
+  git stash
+  git checkout master
+  git pull
+
   echo "Updating apprise in moonraker..."
   /usr/data/moonraker/moonraker-env/bin/python3 -m pip install --no-cache-dir --no-dependencies apprise==1.3.0 || exit $?
   sync
@@ -51,14 +54,16 @@ install_moonraker() {
   /etc/init.d/S50nginx_service start
   /etc/init.d/S56moonraker_service start
   
-  echo "Waiting for moonraker to start ..."
+  echo -n "Waiting for moonraker to start ..."
   while true; do
     MRK_KPY_OK=`curl localhost:7125/server/info 2> /dev/null | jq .result.klippy_connected`
     if [ "$MRK_KPY_OK" = "true" ]; then
       break;
     fi
+    echo -n "."
     sleep 1
   done
+  echo 
 }
 
 install_fluid() {
