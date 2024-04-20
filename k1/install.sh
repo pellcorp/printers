@@ -2,9 +2,10 @@
 
 # git clone --depth=1 https://github.com/pellcorp/printers.git
 # wget "https://raw.githubusercontent.com/Guilouz/Creality-K1-and-K1-Max/main/Scripts/files/fixes/curl" -O install/curl
-# wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S50nginx_service" -O install/S50nginx
-# wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S56moonraker_service" -O install/S56moonraker
-# wget https://raw.githubusercontent.com/Guilouz/Creality-Helper-Script/main/files/moonraker/moonraker.asvc -O install/moonraker.asvc
+# wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S50nginx_service" -O install/S50nginx_service
+# wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S56moonraker_service" -O install/S56moonraker_service
+# wget "https://raw.githubusercontent.com/K1-Klipper/installer_script_k1_and_max/main/sensorless.cfg" -O install/sensorless.cfg
+# wget "https://raw.githubusercontent.com/fluidd-core/fluidd-config/master/client.cfg" -O install/fluidd.cfg
 
 if [ ! -f /usr/data/printer_data/config/printer.cfg ]; then
   echo "Printer data not setup"
@@ -16,9 +17,14 @@ fix_gcode_macros() {
   sed -i 's/^variable_autotune_shapers:/#&/' /usr/data/printer_data/config/gcode_macro.cfg
 }
 
-install_bltouch() {
-  install/curl -L "https://github.com/Klipper3d/klipper/raw/master/klippy/extras/bltouch.py" -o /usr/share/klipper/klippy/extras/bltouch.py
-  install/curl -L "https://github.com/Klipper3d/klipper/raw/master/klippy/extras/screws_tilt_adjust.py" -o /usr/share/klipper/klippy/extras/screws_tilt_adjust.py
+install_k1_klipper() {
+  git --depth=1 clone https://github.com/K1-Klipper/klipper.git /usr/data/klipper
+  mv /usr/share/klipper /usr/data/old.klipper
+  ln -s /usr/data/klipper /usr/share/klipper
+  cp /usr/data/printer_data/config/printer.cfg /usr/data/printer_data/config/printer.bak
+	mv /usr/data/printer_data/config/gcode_macro.cfg /usr/data/printer_data/config/gcode_macro.bak
+	mv /usr/data/printer_data/config/sensorless.cfg /usr/data/printer_data/config/sensorless.bak
+  
 }
 
 install_moonraker() {
@@ -29,8 +35,8 @@ install_moonraker() {
     exit 1
   fi
   tar -zxf /usr/data/moonraker.tar.gz -C /usr/data || exit $?
-  cp install/S50nginx /etc/init.d/
-  cp install/S56moonraker /etc/init.d/
+  cp install/S50nginx_service /etc/init.d/
+  cp install/S56moonraker_service /etc/init.d/
   cp install/notifier.conf /usr/data/printer_data/config/
   cp install/moonraker.conf /usr/data/printer_data/config/
     cp install/moonraker.secrets /usr/data/printer_data/
@@ -40,8 +46,8 @@ install_moonraker() {
   sync
   
   echo "Starting nginx and moonraker..."
-  /etc/init.d/S50nginx start
-  /etc/init.d/S56moonraker start
+  /etc/init.d/S50nginx_service start
+  /etc/init.d/S56moonraker_service start
   
   echo "Waiting for moonraker to start ..."
   while true; do
@@ -56,24 +62,25 @@ install_moonraker() {
 install_fluid() {
   echo "Installing fluidd..."
   install/curl -L "https://github.com/fluidd-core/fluidd/releases/latest/download/fluidd.zip" -o /usr/data/fluidd.zip || exit $?
+  install/curl -L "https://raw.githubusercontent.com/fluidd-core/fluidd-config/master/client.cfg" -o /usr/data/printer_data/config/fluidd.cfg
   mkdir -p /usr/data/fluidd
   unzip -d /usr/data/fluidd /usr/data/fluidd.zip || exit $?
   rm /usr/data/fluidd.zip
   sync
   
-  /etc/init.d/S50nginx restart
+  /etc/init.d/S50nginx_service restart
   sleep 1
-  /etc/init.d/S56moonraker restart
+  /etc/init.d/S56moonraker_service restart
   sleep 1
 }
 
 install_guppyscreen() {
   echo "Installing guppyscreen..."
-  sh -c "GS_RESTART_KLIPPER=y GS_DECREALITY=y $(wget --no-check-certificate -qO - https://raw.githubusercontent.com/pellcorp/guppyscreen/jp_configure_confirm_install/installer.sh)"
+  sh -c "$(wget --no-check-certificate -qO - https://raw.githubusercontent.com/ballaswag/guppyscreen/master/installer.sh)"
 }
 
 fix_gcode_macros
 install_moonraker
 install_fluid
-#install_guppyscreen
-
+install_guppyscreen
+install_k1_klipper
