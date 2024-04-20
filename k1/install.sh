@@ -21,18 +21,21 @@ fi
 PWD=$(pwd)
 
 restart_nginx() {
-  /etc/init.d/S50nginx_service start
   /etc/init.d/S50nginx_service stop
+  sleep 10
+  /etc/init.d/S50nginx_service start
 }
 
 restart_klipper() {
-  /etc/init.d/S55klipper_service start
   /etc/init.d/S55klipper_service stop
+  sleep 10
+  /etc/init.d/S55klipper_service start
 }
 
 restart_moonraker() {
   echo "Restarting moonraker..."
   /etc/init.d/S56moonraker_service stop
+  sleep 10
   /etc/init.d/S56moonraker_service start
 
   echo -n "Waiting for moonraker to start ..."
