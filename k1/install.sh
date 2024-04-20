@@ -61,7 +61,7 @@ restart_moonraker() {
 
 install_k1_klipper() {
   cd $PWD
-  git clone --depth=1 https://github.com/K1-Klipper/klipper.git /usr/data/klipper || exit $?
+  git clone https://github.com/K1-Klipper/klipper.git /usr/data/klipper || exit $?
   rm -rf /usr/share/klipper
   ln -s /usr/data/klipper /usr/share/klipper
   # this is for bltouch
@@ -109,7 +109,7 @@ install_fluid() {
   unzip -d /usr/data/fluidd install/fluidd.zip || exit $?
   sync
 
-  restart_moonraker
+  #restart_moonraker
   restart_nginx
 }
 
