@@ -64,14 +64,18 @@ install_k1_klipper() {
   ln -s /usr/data/klipper /usr/share/
   # this is for bltouch
   sed -i 's/TRSYNC_TIMEOUT = 0.025/TRSYNC_TIMEOUT = 0.050/g' /usr/share/klipper/klippy/mcu.py
+  rm /usr/data/klipper/klippy/extras/custom_macros.py
+  rm /usr/data/klipper/klippy/extras/prtouch*
+
   /usr/share/klippy-env/bin/python3 -m compileall /usr/data/klipper/klippy
 
+  rm /usr/data/printer_data/config/gcode_macro.cfg
+  rm /usr/data/printer_data/config/printer_params.cfg
   cp install/printer.cfg /usr/data/printer_data/config/
   cp install/sensorless.cfg /usr/data/printer_data/config/
   cp install/fluidd.cfg /usr/data/printer_data/config/
   cp install/gcode_macros.cfg /usr/data/printer_data/config/
-  cp install/S55klipper_service /etc/init.d/
-  rm /usr/data/printer_data/config/printer_params.cfg
+  cp install/S55klipper_service /etc/init.d/ 
   sync
 }
 
