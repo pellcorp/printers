@@ -80,10 +80,11 @@ install_fluid() {
   unzip -d /usr/data/fluidd install/fluidd.zip || exit $?
   sync
   
-  /etc/init.d/S50nginx_service restart
+  /etc/init.d/S50nginx_service stop
+  /etc/init.d/S56moonraker_service stop
   sleep 1
-  /etc/init.d/S56moonraker_service restart
-  sleep 1
+  /etc/init.d/S50nginx_service start
+  /etc/init.d/S56moonraker_service start
 }
 
 install_guppyscreen() {
