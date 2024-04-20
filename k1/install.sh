@@ -47,8 +47,8 @@ restart_moonraker() {
 
 install_k1_klipper() {
   cd $PWD
-  git clone --depth=1 https://github.com/K1-Klipper/klipper.git /usr/data/klipper
-  rm -rf /usr/data/old.klipper
+  git clone --depth=1 https://github.com/K1-Klipper/klipper.git /usr/data/klipper || exit $?
+  rm -rf /usr/share/klipper
   ln -s /usr/data/klipper /usr/share/klipper
   # this is for bltouch
   sed -i 's/TRSYNC_TIMEOUT = 0.025/TRSYNC_TIMEOUT = 0.050/g' /usr/share/klipper/klippy/mcu.py
