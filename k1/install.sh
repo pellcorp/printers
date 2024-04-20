@@ -4,6 +4,7 @@
 # wget "https://raw.githubusercontent.com/Guilouz/Creality-K1-and-K1-Max/main/Scripts/files/fixes/curl" -O install/curl
 # wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S50nginx_service" -O install/S50nginx
 # wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S56moonraker_service" -O install/S56moonraker
+# wget https://raw.githubusercontent.com/Guilouz/Creality-Helper-Script/main/files/moonraker/moonraker.asvc -O install/moonraker.asvc
 
 if [ ! -f /usr/data/printer_data/config/printer.cfg ]; then
   echo "Printer data not setup"
@@ -13,6 +14,11 @@ fi
 fix_gcode_macros() {
   echo "Fixing some gcode config ..."
   sed -i 's/^variable_autotune_shapers:/#&/' /usr/data/printer_data/config/gcode_macro.cfg
+}
+
+install_bltouch() {
+  install/curl -L "https://github.com/Klipper3d/klipper/raw/master/klippy/extras/bltouch.py" -o /usr/share/klipper/klippy/extras/bltouch.py
+  install/curl -L "https://github.com/Klipper3d/klipper/raw/master/klippy/extras/screws_tilt_adjust.py" -o /usr/share/klipper/klippy/extras/screws_tilt_adjust.py
 }
 
 install_moonraker() {
@@ -27,7 +33,7 @@ install_moonraker() {
   cp install/S56moonraker /etc/init.d/
   cp install/notifier.conf /usr/data/printer_data/config/
   cp install/moonraker.conf /usr/data/printer_data/config/
-  cp install/moonraker.secrets /usr/data/printer_data/
+    cp install/moonraker.secrets /usr/data/printer_data/
   
   echo "Updating apprise in moonraker..."
   /usr/data/moonraker/moonraker-env/bin/python3 -m pip install --no-cache-dir --no-dependencies apprise==1.3.0 || exit $?
@@ -35,7 +41,6 @@ install_moonraker() {
   
   echo "Starting nginx and moonraker..."
   /etc/init.d/S50nginx start
-  
   /etc/init.d/S56moonraker start
   
   echo "Waiting for moonraker to start ..."
