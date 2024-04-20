@@ -109,6 +109,7 @@ install_fluid() {
   mkdir -p /usr/data/fluidd 
   cp install/fluidd.cfg /usr/data/printer_data/config/
   unzip -d /usr/data/fluidd install/fluidd.zip || exit $?
+  sed -i '/listen 4408 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
   sync
 }
 
