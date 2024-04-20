@@ -18,6 +18,33 @@ fi
 
 PWD=$(pwd)
 
+restart_nginx() {
+  /etc/init.d/S50nginx_service start
+  /etc/init.d/S50nginx_service stop
+}
+
+restart_klipper() {
+  /etc/init.d/S55klipper_service start
+  /etc/init.d/S55klipper_service stop
+}
+
+restart_moonraker() {
+  echo "Restarting moonraker..."
+  /etc/init.d/S56moonraker_service stop
+  /etc/init.d/S56moonraker_service start
+
+  echo -n "Waiting for moonraker to start ..."
+  while true; do
+    MRK_KPY_OK=`curl localhost:7125/server/info 2> /dev/null | jq .result.klippy_connected`
+    if [ "$MRK_KPY_OK" = "true" ]; then
+      break;
+    fi
+    echo -n "."
+    sleep 1
+  done
+  echo 
+}
+
 install_k1_klipper() {
   cd $PWD
   git --depth=1 clone https://github.com/K1-Klipper/klipper.git /usr/data/klipper
@@ -32,7 +59,7 @@ install_k1_klipper() {
   cp install/fluidd.cfg /usr/data/printer_data/config/
   cp install/gcode_macros.cfg /usr/data/printer_data/config/
   cp install/S55klipper_service /etc/init.d/
-  /etc/init.d/S55klipper_service restart
+  restart_klipper
 }
 
 install_moonraker() {
@@ -56,20 +83,7 @@ install_moonraker() {
   /usr/data/moonraker/moonraker-env/bin/python3 -m pip install --no-cache-dir --no-dependencies apprise==1.3.0 || exit $?
   sync
   
-  echo "Starting nginx and moonraker..."
-  /etc/init.d/S50nginx_service start
-  /etc/init.d/S56moonraker_service start
-  
-  echo -n "Waiting for moonraker to start ..."
-  while true; do
-    MRK_KPY_OK=`curl localhost:7125/server/info 2> /dev/null | jq .result.klippy_connected`
-    if [ "$MRK_KPY_OK" = "true" ]; then
-      break;
-    fi
-    echo -n "."
-    sleep 1
-  done
-  echo 
+  restart_moonraker
 }
 
 install_fluid() {
@@ -79,12 +93,9 @@ install_fluid() {
   cp install/fluidd.cfg /usr/data/printer_data/config/
   unzip -d /usr/data/fluidd install/fluidd.zip || exit $?
   sync
-  
-  /etc/init.d/S50nginx_service stop
-  /etc/init.d/S56moonraker_service stop
-  sleep 1
-  /etc/init.d/S50nginx_service start
-  /etc/init.d/S56moonraker_service start
+
+  restart_moonraker
+  restart_nginx
 }
 
 install_guppyscreen() {
