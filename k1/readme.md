@@ -8,3 +8,7 @@ cd printers/k1
 ./install.sh
 ```
 
+The Bltouch model I use:
+
+https://www.printables.com/model/666186-creality-k1-bltouch-adapter
+
