@@ -130,8 +130,8 @@ function remove_more_services() {
 
 install_moonraker
 install_fluid
-remove_more_services
 install_k1_klipper
 install_guppyscreen
+remove_more_services
 
 echo "You must powercycle the printer so that the nozzle firmware is updated"

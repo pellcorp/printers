@@ -1,0 +1,3 @@
+[submodule "k1/install/k1-klipper"]
+	path = k1/install/k1-klipper
+	url = https://github.com/K1-Klipper/klipper.git
