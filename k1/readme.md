@@ -13,8 +13,8 @@ The config might be of use as a reference though.
 ```
 cd ~
 git config --global http.sslVerify false
-git clone https://github.com/pellcorp/printers.git
-cd printers/k1
+git clone --recursive https://github.com/pellcorp/printers.git /usr/data/printers
+cd /usr/data/printers/k1
 ./install.sh
 ```
 

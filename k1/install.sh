@@ -15,7 +15,13 @@ if [ ! -f /usr/data/printer_data/config/printer.cfg ]; then
   exit 1
 fi
 
-PWD=$(pwd)
+# https://stackoverflow.com/a/1638397
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+
+if [ "$SCRIPTPATH" != "/usr/data/printers/k1" ]; then
+  echo "This git repo must be cloned to /usr/data/printers"
+fi
 
 restart_nginx() {
   /etc/init.d/S50nginx_service stop
@@ -58,14 +64,9 @@ start_moonraker() {
 }
 
 install_k1_klipper() {
-  cd $PWD
-  git clone https://github.com/K1-Klipper/klipper.git /usr/data/klipper || exit $?
+  git clone https://github.com/pellcorp/k1-klipper.git /usr/data/klipper || exit $?
   rm -rf /usr/share/klipper
   ln -s /usr/data/klipper /usr/share/
-  # this is for bltouch
-  sed -i 's/TRSYNC_TIMEOUT = 0.025/TRSYNC_TIMEOUT = 0.050/g' /usr/share/klipper/klippy/mcu.py
-  rm /usr/data/klipper/klippy/extras/custom_macros.py
-  rm /usr/data/klipper/klippy/extras/prtouch*
 
   /usr/share/klippy-env/bin/python3 -m compileall /usr/data/klipper/klippy
 
