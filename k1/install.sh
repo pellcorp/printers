@@ -1,6 +1,5 @@
 #!/bin/sh
 
-# wget "https://raw.githubusercontent.com/Guilouz/Creality-K1-and-K1-Max/main/Scripts/files/fixes/curl" -O install/curl
 # wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S50nginx_service" -O install/S50nginx_service
 # wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S56moonraker_service" -O install/S56moonraker_service
 # wget "https://raw.githubusercontent.com/K1-Klipper/installer_script_k1_and_max/main/sensorless.cfg" -O install/sensorless.cfg
@@ -9,6 +8,7 @@
 # wget "https://github.com/Guilouz/Creality-Helper-Script/raw/main/files/moonraker/moonraker.tar.gz" -O install/moonraker.tar.gz
 # wget "https://github.com/fluidd-core/fluidd/releases/latest/download/fluidd.zip" -O install/fluidd.zip
 # wget "https://raw.githubusercontent.com/fluidd-core/fluidd-config/master/client.cfg" -O install/fluidd.cfg
+# wget "https://github.com/ballaswag/guppyscreen/releases/download/nightly/guppyscreen.tar.gz" -O install/guppyscreen.tar.gz
 
 if [ ! -f /usr/data/printer_data/config/printer.cfg ]; then
   echo "Printer data not setup"
