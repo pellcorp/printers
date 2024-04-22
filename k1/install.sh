@@ -43,7 +43,6 @@ install_k1_klipper() {
   # remove some unwanted additional config
   rm /usr/data/printer_data/config/printer_params.cfg
   rm /usr/data/printer_data/config/factory_printer.cfg
-
   sync
 }
 
@@ -68,8 +67,6 @@ install_moonraker() {
   export SKIP_CYTHON=1
   /usr/data/moonraker/moonraker-env/bin/python3 -m pip install -r /usr/data/moonraker/moonraker/scripts/moonraker-requirements.txt
   sync
-
-  start_moonraker
 }
 
 install_fluid() {
