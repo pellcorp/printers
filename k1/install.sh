@@ -64,8 +64,9 @@ install_moonraker() {
   git pull
   cd -
 
-  echo "Updating apprise in moonraker..."
-  /usr/data/moonraker/moonraker-env/bin/python3 -m pip install --no-cache-dir --no-dependencies apprise==1.3.0 || exit $?
+  echo "Updating moonraker-env python deps..."
+  export SKIP_CYTHON=1
+  /usr/data/moonraker/moonraker-env/bin/python3 -m pip install -r /usr/data/moonraker/moonraker/scripts/moonraker-requirements.txt
   sync
 
   start_moonraker
@@ -103,28 +104,35 @@ install_guppyscreen() {
 
   mv /etc/init.d/S12boot_display $BACKUP_DIR
   mv /etc/init.d/S99start_app $BACKUP_DIR
-  mv /etc/init.d/S70cx_ai_middleware $BACKUP_DIR
   # these are extras that guppy install does not normally remove
+  mv /etc/init.d/S70cx_ai_middleware $BACKUP_DIR
   mv /etc/init.d/S97webrtc $BACKUP_DIR
   mv /etc/init.d/S99mdns $BACKUP_DIR
   mv /usr/lib/python3.8/site-packages/matplotlib/ft2font.cpython-38-mipsel-linux-gnu.so $BACKUP_DIR
   
   cp $K1_GUPPY_DIR/k1_mods/gcode_shell_command.py $GCODE_SHELL_CMD
+  cp $K1_GUPPY_DIR/k1_mods/calibrate_shaper_config.py $SHAPER_CONFIG
+
   mkdir -p $K1_CONFIG_DIR/GuppyScreen/scripts
   cp $K1_GUPPY_DIR/scripts/*.cfg $K1_CONFIG_DIR/GuppyScreen
   cp $K1_GUPPY_DIR/scripts/*.py $K1_CONFIG_DIR/GuppyScreen/scripts
 
   cp $K1_GUPPY_DIR/k1_mods/S99guppyscreen /etc/init.d/S99guppyscreen
-
-  cp $K1_GUPPY_DIR/k1_mods/calibrate_shaper_config.py $SHAPER_CONFIG
+  
   ln -sf $K1_GUPPY_DIR/k1_mods/guppy_module_loader.py $KLIPPY_EXTRA_DIR/guppy_module_loader.py
   ln -sf $K1_GUPPY_DIR/k1_mods/guppy_config_helper.py $KLIPPY_EXTRA_DIR/guppy_config_helper.py
   ln -sf $K1_GUPPY_DIR/k1_mods/tmcstatus.py $KLIPPY_EXTRA_DIR/tmcstatus.py
+
   cp $K1_GUPPY_DIR/k1_mods/ft2font.cpython-38-mipsel-linux-gnu.so $FT2FONT_PATH
   ln -sf $K1_GUPPY_DIR/k1_mods/respawn/libeinfo.so.1 /lib/libeinfo.so.1
   ln -sf $K1_GUPPY_DIR/k1_mods/respawn/librc.so.1 /lib/librc.so.1
 
   sync
+
+  if ! diff $K1_GUPPY_DIR/k1_mods/S50dropbear /etc/init.d/S50dropbear > /dev/null ; then
+    printf "${red}Dropbear (SSHD) didn't install properly. ${white}\n"
+    exit 1
+  fi
 }
 
 install_moonraker
