@@ -60,7 +60,9 @@ install_moonraker() {
   cd /usr/data/moonraker/moonraker
   git stash
   git checkout master
-  git pull
+  git fetch
+  # I want a known version of moonraker to be installed, I don't want to accidentally pick up later than I have tested
+  git reset --hard 9447494bd50dcc254525a8edc2eb2c90a9528b2c
   cd -
 
   echo "Updating moonraker-env python deps..."
