@@ -1,17 +1,7 @@
 #!/bin/sh
 
-# wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S50nginx_service" -O install/S50nginx_service
-# wget "https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S56moonraker_service" -O install/S56moonraker_service
-# wget "https://raw.githubusercontent.com/K1-Klipper/installer_script_k1_and_max/main/sensorless.cfg" -O install/sensorless.cfg
-# wget "https://raw.githubusercontent.com/fluidd-core/fluidd-config/master/client.cfg" -O install/fluidd.cfg
-# wget "https://raw.githubusercontent.com/K1-Klipper/installer_script_k1_and_max/main/S55klipper_service" -O install/S55klipper_service
-# wget "https://github.com/Guilouz/Creality-Helper-Script/raw/main/files/moonraker/moonraker.tar.gz" -O install/moonraker.tar.gz
-# wget "https://github.com/fluidd-core/fluidd/releases/latest/download/fluidd.zip" -O install/fluidd.zip
-# wget "https://raw.githubusercontent.com/fluidd-core/fluidd-config/master/client.cfg" -O install/fluidd.cfg
-# wget "https://github.com/ballaswag/guppyscreen/releases/download/nightly/guppyscreen.tar.gz" -O install/guppyscreen.tar.gz
-
 if [ ! -f /usr/data/printer_data/config/printer.cfg ]; then
-  echo "Printer data not setup"
+  >&2 echo "ERROR: Printer data not setup"
   exit 1
 fi
 
@@ -20,10 +10,37 @@ SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 
 if [ "$SCRIPTPATH" != "/usr/data/printers/k1" ]; then
-  echo "This git repo must be cloned to /usr/data/printers"
+  >&2 echo "ERROR: This git repo must be cloned to /usr/data/printers"
 fi
 
-install_k1_klipper() {
+install_moonraker() {
+  cd $PWD
+  echo "Installing nginx and moonraker..."
+  git clone https://github.com/pellcorp/moonraker.git /usr/data/moonraker || exit $?
+  tar -zxf install/nginx.tar.gz -C /usr/data/ || exit $?
+  
+  cp install/nginx.conf /usr/data/nginx/
+  cp install/S50nginx_service /etc/init.d/
+  cp install/S56moonraker_service /etc/init.d/
+  cp install/notifier.conf /usr/data/printer_data/config/
+  cp install/moonraker.conf /usr/data/printer_data/config/
+  cp install/moonraker.secrets /usr/data/printer_data/
+
+  echo "Installing moonraker-env ..."
+  tar -zxf install/moonraker-env.tar.gz -C /usr/data/ || exit $?
+  sync
+}
+
+install_fluid() {
+  cd $PWD
+  echo "Installing fluidd..."
+  mkdir -p /usr/data/fluidd 
+  cp install/fluidd.cfg /usr/data/printer_data/config/
+  unzip -qd /usr/data/fluidd install/fluidd-v1.29.1.zip || exit $?
+  sync
+}
+
+install_klipper() {
   echo "Installing k1 klipper..."
   git clone https://github.com/pellcorp/k1-klipper.git /usr/data/klipper || exit $?
   rm -rf /usr/share/klipper
@@ -46,41 +63,6 @@ install_k1_klipper() {
   sync
 }
 
-install_moonraker() {
-  cd $PWD
-  echo "Installing nginx and moonraker..."
-  tar -zxf install/moonraker.tar.gz -C /usr/data
-  cp install/S50nginx_service /etc/init.d/
-  cp install/S56moonraker_service /etc/init.d/
-  cp install/notifier.conf /usr/data/printer_data/config/
-  cp install/moonraker.conf /usr/data/printer_data/config/
-  cp install/moonraker.secrets /usr/data/printer_data/
-
-  echo "Updating moonraker to latest..."  
-  cd /usr/data/moonraker/moonraker
-  git stash
-  git checkout master
-  git fetch
-  # I want a known version of moonraker to be installed, I don't want to accidentally pick up later than I have tested
-  git reset --hard 9447494bd50dcc254525a8edc2eb2c90a9528b2c
-  cd -
-
-  echo "Updating moonraker-env python deps..."
-  export SKIP_CYTHON=1
-  /usr/data/moonraker/moonraker-env/bin/python3 -m pip install -r /usr/data/moonraker/moonraker/scripts/moonraker-requirements.txt
-  sync
-}
-
-install_fluid() {
-  cd $PWD
-  echo "Installing fluidd..."
-  mkdir -p /usr/data/fluidd 
-  cp install/fluidd.cfg /usr/data/printer_data/config/
-  unzip -d /usr/data/fluidd install/fluidd.zip || exit $?
-  sed -i '/listen 4408 default_server;/a \        listen 80;' /usr/data/nginx/nginx/nginx.conf
-  sync
-}
-
 install_guppyscreen() {
   cd $PWD
   echo "Installing guppyscreen..."
@@ -94,7 +76,7 @@ install_guppyscreen() {
   SHAPER_CONFIG=$KLIPPY_EXTRA_DIR/calibrate_shaper_config.py
   K1_CONFIG_DIR=/usr/data/printer_data/config
 
-  tar xf install/guppyscreen.tar.gz -C /usr/data/
+  tar -zxf install/guppyscreen.tar.gz -C /usr/data/
 
   # lets make sure that ssh gets started upon reboot
   mkdir -p $BACKUP_DIR
@@ -129,14 +111,14 @@ install_guppyscreen() {
   sync
 
   if ! diff $K1_GUPPY_DIR/k1_mods/S50dropbear /etc/init.d/S50dropbear > /dev/null ; then
-    printf "${red}Dropbear (SSHD) didn't install properly. ${white}\n"
+    >&2 echo "ERROR: Dropbear (SSHD) didn't install properly."
     exit 1
   fi
 }
 
 install_moonraker
 install_fluid
-install_k1_klipper
+install_klipper
 install_guppyscreen
 
-echo "You must powercycle the printer so that the nozzle firmware is updated"
+echo "IMPORTANT: You must powercycle the printer so that the nozzle firmware is updated"
