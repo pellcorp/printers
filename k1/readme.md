@@ -64,5 +64,5 @@ for klipper with anything of consequence for some time, so we continue to use /u
 The following wiki pages are my attempt to document the installation process and the various steps I am automating with my install script, both
 pages are works in progress.
 
-https://github.com/pellcorp/creality/wiki/K1-Bltouch
-https://github.com/pellcorp/creality/wiki/K1-Minimal-Creality
+- https://github.com/pellcorp/creality/wiki/K1-Bltouch
+- https://github.com/pellcorp/creality/wiki/K1-Minimal-Creality
