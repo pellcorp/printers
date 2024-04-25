@@ -8,7 +8,6 @@ THIS IS FOR REFERENCE ONLY, THERE IS A VERY REAL POSIBILITY OF BRICKING YOUR PRI
 git config --global http.sslVerify false
 git clone https://github.com/pellcorp/printers.git /usr/data/printers
 cd /usr/data/printers/k1
-git switch jp_refactor_install
 ./install.sh
 ```
 
