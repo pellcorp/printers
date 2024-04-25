@@ -4,8 +4,9 @@
 #
 
 USER_DATA=/usr/data
-PROG=/usr/data/moonraker/moonraker-env/bin/python
-PY_SCRIPT=/usr/data/moonraker/moonraker/moonraker/moonraker.py
+PROG=/usr/data/moonraker-env/bin/python3
+# the moonraker server is actually underneath the embedded moonraker directory in the moonraker repo
+PY_SCRIPT=/usr/data/moonraker/moonraker/moonraker.py
 PRINTER_DATA_DIR=$USER_DATA/printer_data
 PRINTER_CONFIG_DIR=$PRINTER_DATA_DIR/config
 PRINTER_LOGS_DIR=$PRINTER_DATA_DIR/logs
@@ -16,10 +17,11 @@ start() {
   [ -d $PRINTER_CONFIG_DIR ] || mkdir -p $PRINTER_CONFIG_DIR
   [ -d $PRINTER_LOGS_DIR ] || mkdir -p $PRINTER_LOGS_DIR
   
-  rm -rf /usr/data/moonraker/tmp; mkdir -p /usr/data/moonraker/tmp
-  TMPDIR=/usr/data/moonraker/tmp HOME=/root start-stop-daemon -S -q -b -m -p $PID_FILE \
+  rm -rf /usr/data/tmp; mkdir -p /usr/data/tmp
+  TMPDIR=/usr/data/tmp HOME=/root start-stop-daemon -S -q -b -m -p $PID_FILE \
     --exec $PROG -- $PY_SCRIPT -d $PRINTER_DATA_DIR
 }
+
 stop() {
   start-stop-daemon -K -q -p $PID_FILE
 }
