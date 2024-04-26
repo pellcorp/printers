@@ -19,7 +19,7 @@ install_moonraker() {
   git clone https://github.com/pellcorp/moonraker.git /usr/data/moonraker || exit $?
   tar -zxf install/nginx.tar.gz -C /usr/data/ || exit $?
   
-  cp install/nginx.conf /usr/data/nginx/
+  cp install/nginx.conf /usr/data/nginx/nginx/
   cp install/S50nginx_service /etc/init.d/
   cp install/S56moonraker_service /etc/init.d/
   cp install/notifier.conf /usr/data/printer_data/config/
