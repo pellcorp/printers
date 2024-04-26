@@ -19,8 +19,8 @@ I don't wan't to inadvertantly pick up another version of a file which might be 
 
 - install/S50nginx_service -> https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S50nginx_service
 - install/S56moonraker_service -> https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/services/S56moonraker_service
+- install/moonraker.conf -> https://github.com/Guilouz/Creality-Helper-Script/blob/main/files/moonraker/moonraker.conf
 - install/sensorless.cfg -> https://raw.githubusercontent.com/K1-Klipper/installer_script_k1_and_max/main/sensorless.cfg
-- install/fluidd.cfg -> https://raw.githubusercontent.com/fluidd-core/fluidd-config/master/client.cfg
 - install/S55klipper_service -> https://raw.githubusercontent.com/K1-Klipper/installer_script_k1_and_max/main/S55klipper_service
 - install/fluidd-v1.29.1.zip -> https://github.com/fluidd-core/fluidd/releases/download/v1.29.1/fluidd.zip
 - install/fluidd.cfg -> https://raw.githubusercontent.com/fluidd-core/fluidd-config/master/client.cfg
