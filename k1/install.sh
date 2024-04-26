@@ -122,3 +122,5 @@ install_klipper
 install_guppyscreen
 
 echo "IMPORTANT: You must powercycle the printer so that the nozzle firmware is updated"
+echo "Do not forget to update the /usr/data/printer_data/moonraker.secrets file with the fastmail app password"
+
