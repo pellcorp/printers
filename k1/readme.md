@@ -36,6 +36,9 @@ I use my fork of moonraker, to make sure I always get the same version
 In an attempt to simplify the installation of moonraker, I have taken the moonraker.tar.gz and extracted the nginx directory.   
 I have been unable to determine where to get nginx for mips.
 
+The nginx binaries originally came from:
+https://github.com/CrealityOfficial/K1_Series_Annex/blob/main/fluidd/fluidd/fluidd.tar
+
 Use the `recreate-nginx.sh` script to extract the nginx directory from:
 https://github.com/Guilouz/Creality-Helper-Script/raw/main/files/moonraker/moonraker.tar.gz
 
@@ -43,6 +46,9 @@ The install/nginx.conf is originally from moonraker.tar.gz:nginx/nginx/nginx.con
 listen on port 80.
 
 ### Moonraker Env
+
+The moonraker-env originally came from:
+https://github.com/CrealityOfficial/K1_Series_Annex/blob/main/fluidd/fluidd/fluidd.tar
 
 Use the `recreate-moonraker-env.sh` script to extract the moonraker/moonraker-env directory from:
 https://github.com/Guilouz/Creality-Helper-Script/raw/main/files/moonraker/moonraker.tar.gz
