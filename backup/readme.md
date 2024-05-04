@@ -1,1 +1,0 @@
-Backup repository for my ender 3 and k1, also has some scripts for automating backups, notes about setting up again after a factory reset or other renewal, also a alpine based Dockerfile for testing scripts running on k1 with busybox
