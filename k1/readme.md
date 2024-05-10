@@ -57,7 +57,8 @@ I do install the asyncio and updated apprise packages locally to avoid doing tha
 
 ## Klipper
 
-I use my fork of the k1-klipper repo to make sure I always get the same version
+I use my fork of the klipper repo to make sure I always get the same version.  My klipper repo is forked from
+upstream klipper, but has the K1-Klipper fw/k1 directory, plus the mcu.py timeout fix for probes.
 
 ### Creality OS Specific
 
@@ -70,5 +71,6 @@ for klipper with anything of consequence for some time, so we continue to use /u
 The following wiki pages are my attempt to document the installation process and the various steps I am automating with my install script, both
 pages are works in progress.
 
-- https://github.com/pellcorp/creality/wiki/K1-Bltouch
-- https://github.com/pellcorp/creality/wiki/K1-Minimal-Creality
+- https://github.com/pellcorp/creality/wiki/My-K1-Journey
+- https://github.com/pellcorp/creality/wiki/K1-Stock-Mainboard-Less-Creality
+
