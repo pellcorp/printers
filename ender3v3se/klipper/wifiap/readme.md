@@ -4,7 +4,7 @@ is just for CYD-Klipper to use.
 # Install packages
 
 ```
-sudo apt-get install dnsmasq hostapd
+sudo apt-get install dnsmasq hostapd dhcpcd
 ```
 
 # Hostapd
