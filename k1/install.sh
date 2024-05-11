@@ -42,7 +42,7 @@ install_fluid() {
 
 install_klipper() {
   echo "Installing k1 klipper..."
-  git clone https://github.com/pellcorp/k1-klipper.git /usr/data/klipper || exit $?
+  git clone https://github.com/pellcorp/klipper.git /usr/data/klipper || exit $?
   rm -rf /usr/share/klipper
   ln -s /usr/data/klipper /usr/share/
   
