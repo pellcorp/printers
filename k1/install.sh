@@ -122,6 +122,7 @@ disable_more_services() {
   mv /etc/init.d/S70cx_ai_middleware $BACKUP_DIR
   mv /etc/init.d/S97webrtc $BACKUP_DIR
   mv /etc/init.d/S99mdns $BACKUP_DIR
+  sync
 }
 
 install_moonraker
