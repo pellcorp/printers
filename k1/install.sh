@@ -55,9 +55,12 @@ install_klipper() {
   cp install/printer.cfg /usr/data/printer_data/config/
   cp install/sensorless.cfg /usr/data/printer_data/config/
   cp install/fluidd.cfg /usr/data/printer_data/config/
-  cp install/gcode_macro.cfg /usr/data/printer_data/config/
+  cp install/custom_gcode.cfg /usr/data/printer_data/config/
+  cp install/microprobe.cfg /usr/data/printer_data/config/
+  cp install/fan_control.cfg /usr/data/printer_data/config/
   
   # remove some unwanted additional config
+  rm /usr/data/printer_data/config/gcode_macro.cfg
   rm /usr/data/printer_data/config/printer_params.cfg
   rm /usr/data/printer_data/config/factory_printer.cfg
   sync
@@ -67,7 +70,7 @@ install_guppyscreen() {
   cd $PWD
   echo "Installing guppyscreen..."
 
-  BACKUP_DIR=/usr/data/guppyify-backup
+  BACKUP_DIR=/usr/data/backup
   K1_GUPPY_DIR=/usr/data/guppyscreen
   FT2FONT_PATH=/usr/lib/python3.8/site-packages/matplotlib/ft2font.cpython-38-mipsel-linux-gnu.so
   KLIPPER_PATH=/usr/share/klipper
@@ -85,10 +88,6 @@ install_guppyscreen() {
 
   mv /etc/init.d/S12boot_display $BACKUP_DIR
   mv /etc/init.d/S99start_app $BACKUP_DIR
-  # these are extras that guppy install does not normally remove
-  mv /etc/init.d/S70cx_ai_middleware $BACKUP_DIR
-  mv /etc/init.d/S97webrtc $BACKUP_DIR
-  mv /etc/init.d/S99mdns $BACKUP_DIR
   mv /usr/lib/python3.8/site-packages/matplotlib/ft2font.cpython-38-mipsel-linux-gnu.so $BACKUP_DIR
   
   cp $K1_GUPPY_DIR/k1_mods/gcode_shell_command.py $GCODE_SHELL_CMD
@@ -116,11 +115,21 @@ install_guppyscreen() {
   fi
 }
 
+disable_more_services() {
+  BACKUP_DIR=/usr/data/backup
+
+  # these are extras that guppy install does not normally remove
+  mv /etc/init.d/S70cx_ai_middleware $BACKUP_DIR
+  mv /etc/init.d/S97webrtc $BACKUP_DIR
+  mv /etc/init.d/S99mdns $BACKUP_DIR
+}
+
 install_moonraker
 install_fluid
 install_klipper
+# guppyscreen should be installed last 
 install_guppyscreen
+disable_more_services
 
 echo "IMPORTANT: You must powercycle the printer so that the nozzle firmware is updated"
 echo "Do not forget to update the /usr/data/printer_data/moonraker.secrets file with the fastmail app password"
-
